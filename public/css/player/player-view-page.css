@@ -1,0 +1,148 @@
+.playerSummaryStatBox {
+    box-shadow: 0 1px 2px 0 rgb(50 50 50 / 40%);
+    background-color: #fff;
+    background-image: linear-gradient(136deg,#1b1f23,#3a4755);
+    position: relative;
+    display: flex;
+    top: 0;
+    height: 245px;
+}
+
+.summaryBodyshotContainer {
+    flex: 0 0 223px;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.summaryBodyshot {
+    position: absolute;
+    max-width: 200px;
+    bottom: 5px;
+    left: 5px;
+    pointer-events: none;
+}
+
+.summaryBreakdownContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-width: 0;
+}
+
+.summaryShortInfo {
+    position: relative;
+    margin-bottom: 4px;
+}
+
+.summaryNickname {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: 32px;
+    color: #fff;
+}
+
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+.summaryInfoContainer {
+    margin-top: -6px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid hsla(0,0%,100%,.22);
+    color: hsla(0,0%,100%,.65);
+    font-size: 10px;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+    margin-right: 8px;
+}
+
+.SummaryTeamname {
+    transition: initial!important;
+    color: hsla(0,0%,100%,.65);
+    cursor: pointer;
+}
+
+.a-reset {
+    color: inherit;
+    font-weight: inherit;
+}
+
+.summaryStatBreakdownRow {
+    display: flex;
+    margin-left: -8px;
+    margin-top: 4px;
+}
+
+.summaryStatBreakdown {
+    flex: 1;
+    margin: 8px;
+    position: relative;
+}
+
+.summaryStatBreakdownSubHeader {
+    font-size: 9px;
+    color: #9ec8f1;
+    text-transform: uppercase;
+    margin-bottom: -4px;
+}
+
+.summaryStatBreakdownDataValue {
+    font-weight: 700;
+    font-size: 32px;
+    color: #fff;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.section-spacer {
+    height: 18px;
+}
+
+.standard-headline {
+    font-size: 12px;
+    font-weight: 700;
+    color: #353535;
+    opacity: .65;
+    margin: 0 0 5px;
+}
+
+.columns {
+    display: flex;
+}
+
+.col:first-child {
+    margin-left: 0;
+}
+
+.col {
+    flex: 1 0 0;
+    margin-left: 10px;
+    min-width: 0;
+}
+
+.standard-box {
+    box-shadow: 0 1px 2px 0 rgb(50 50 50 / 40%);
+    background-color: #fff;
+}
+
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    border: solid #ccc;
+    border-width: 1px 0 0;
+    padding: 7px;
+    font-size: 12px;
+}

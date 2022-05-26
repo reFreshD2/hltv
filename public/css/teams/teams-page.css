@@ -1,0 +1,101 @@
+.standard-headline {
+    font-size: 12px;
+    font-weight: 700;
+    color: #353535;
+    opacity: .65;
+    margin: 0 0 5px;
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    box-shadow: 0 1px 2px 0 rgb(50 50 50 / 40%);
+    background-color: #fff;
+}
+
+.stats-table thead {
+    font-weight: 700;
+    background-color: #f6f6f9;
+}
+
+tr:last-child {
+    border-bottom: 0;
+}
+
+tr {
+    border-top: 1px solid #ccc;
+}
+
+.teamCol-teams-overview {
+    text-align: left;
+    width: 50%;
+}
+
+th[role=columnheader]:not(.no-sort) {
+    cursor: pointer;
+}
+
+th:first-child {
+    border-left: 0;
+}
+
+th {
+    text-align: center;
+    padding: 5px;
+    white-space: nowrap;
+    border-left: 1px solid #ccc;
+}
+
+.teamCol-teams-overview {
+    text-align: left;
+    width: 50%;
+}
+
+td:first-child {
+    padding-left: 5px;
+    border-left: 0;
+}
+
+td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 5px;
+}
+
+.statsDetail {
+    opacity: .5;
+    text-align: center;
+}
+
+.kdDiffCol {
+    width: 50px;
+    text-align: center;
+}
+
+.won {
+    color: #08a500;
+}
+
+.lose {
+    color: darkred;
+}
+
+.statsDetail {
+    opacity: .5;
+    text-align: center;
+}
+
+.ratingCol {
+    width: 50px;
+    text-align: center;
+    font-weight: 700;
+}
+
+td:last-child {
+    padding-right: 5px;
+    border-right: 0;
+}

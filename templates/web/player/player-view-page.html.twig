@@ -1,0 +1,128 @@
+{% extends 'web/web.base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/player/player-view-page.css">
+    <link rel="stylesheet" type="text/css" href="/css/tournament/tournament-view-matches-page.css">
+{% endblock %}
+
+{% block content %}
+    <div class="playerSummaryStatBox">
+        <div class="summaryBodyshotContainer">
+            <img alt="{{ playerStat.player.nickname }}"
+                 src="/img/default/player.png"
+                 class="summaryBodyshot"
+                 title="{{ playerStat.player.nickname }}"
+            >
+        </div>
+        <div class="summaryBreakdownContainer">
+            <div class="summaryShortInfo">
+                <h1 class="summaryNickname text-ellipsis">{{ playerStat.player.nickname }}</h1>
+                <div class="summaryInfoContainer">
+                    <div class="SummaryTeamname text-ellipsis">
+                        <a href="/teams/{{ playerStat.player.teams.last.id }}" class="a-reset text-ellipsis">
+                            {{ playerStat.player.teams.last.name }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="summaryStatBreakdownRow">
+                <div class="summaryStatBreakdown average">
+                    <div class="summaryStatBreakdownSubHeader">Рейтинг</div>
+                    <div class="summaryStatBreakdownData">
+                        <div class="summaryStatBreakdownDataValue">{{ playerStat.player.rating }}</div>
+                    </div>
+                </div>
+                <div class="summaryStatBreakdown average">
+                    <div class="summaryStatBreakdownSubHeader">KDA</div>
+                    <div class="summaryStatBreakdownData">
+                        <div class="summaryStatBreakdownDataValue">{{ playerStat.kda }}</div>
+                    </div>
+                </div>
+                <div class="summaryStatBreakdown average">
+                    <div class="summaryStatBreakdownSubHeader">Карт сыграно</div>
+                    <div class="summaryStatBreakdownData">
+                        <div class="summaryStatBreakdownDataValue">{{ playerStat.mapPlayed }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="summaryStatBreakdownRow">
+                <div class="summaryStatBreakdown average">
+                    <div class="summaryStatBreakdownSubHeader">MVP</div>
+                    <div class="summaryStatBreakdownData">
+                        <div class="summaryStatBreakdownDataValue">{{ playerStat.allMvps }}</div>
+                    </div>
+                </div>
+                <div class="summaryStatBreakdown average">
+                    <div class="summaryStatBreakdownSubHeader">KD</div>
+                    <div class="summaryStatBreakdownData">
+                        <div class="summaryStatBreakdownDataValue">{{ playerStat.kd }}</div>
+                    </div>
+                </div>
+                <div class="summaryStatBreakdown average">
+                    <div class="summaryStatBreakdownSubHeader">Серий убийств</div>
+                    <div class="summaryStatBreakdownData">
+                        <div class="summaryStatBreakdownDataValue">{{ playerStat.allMultikills }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-spacer"></div>
+    <div><span class="standard-headline">Statistics</span></div>
+    <div class="statistics">
+        <div class="columns">
+            <div class="col stats-rows standard-box">
+                <div class="stats-row"><span>Всего убийств</span><span>{{ playerStat.allKills }}</span></div>
+                <div class="stats-row"><span>Всего смертей</span><span>{{ playerStat.allDeaths }}</span></div>
+                <div class="stats-row"><span>Всего ассистов</span><span>{{ playerStat.allAssists }}</span></div>
+                <div class="stats-row"><span>KDA</span><span>{{ playerStat.kda }}</span></div>
+                <div class="stats-row"><span>Карт сыграно</span><span>{{ playerStat.mapPlayed }}</span></div>
+                <div class="stats-row"><span>Всего хэдшотов</span><span>{{ playerStat.allHs }}</span></div>
+                <div class="stats-row"><span>Серий убийств</span><span>{{ playerStat.allMultikills }}</span></div>
+            </div>
+            <div class="col stats-rows standard-box">
+                <div class="stats-row"><span>Убийств в раунд</span><span>{{ playerStat.kpr }}</span></div>
+                <div class="stats-row"><span>Смертей в раунд</span><span>{{ playerStat.dpr }}</span></div>
+                <div class="stats-row"><span>Ассистов в раунд</span><span>{{ playerStat.apr }}</span></div>
+                <div class="stats-row"><span>K/D</span><span>{{ playerStat.kd }}</span></div>
+                <div class="stats-row"><span>Раундов сыграно</span><span>{{ playerStat.roundPlayed }}</span></div>
+                <div class="stats-row"><span>Процент хэдшотов</span><span>{{ playerStat.hsPersent }}</span></div>
+                <div class="stats-row"><span>MVP</span><span>{{ playerStat.allMvps }}</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="section-spacer"></div>
+    <div>
+        <span class="standard-headline">Матчи</span>
+    </div>
+    <div class="matchesSection">
+        {% for game in games %}
+            <div class="matches removeBackground">
+                <a href="/match/{{ game.id }}" class="match a-reset">
+                    <div class="matchTeams text-ellipsis">
+                        <div class="matchTeam team1">
+                            <div class="matchTeamName text-ellipsis">{{ game.teamA.name }}</div>
+                        </div>
+                        <div class="matchTeam team2">
+                            <div class="matchTeamName text-ellipsis">{{ game.teamB.name }}</div>
+                        </div>
+                    </div>
+                    <div class="matchEvent">
+                        <div class="matchEventName">
+                            {{ game.map.name }}  {{ game.score }}
+                        </div>
+                    </div>
+                    <div class="map-name-holder">
+                        <img
+                                alt="{{ game.map.name }}"
+                                src="/img/maps/{{ game.map.name }}.png"
+                                class="minimap"
+                                title="{{ game.map.name }}"
+                                height="32px"
+                        >
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

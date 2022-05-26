@@ -1,0 +1,52 @@
+{% extends 'web/web.base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/tournament/tournament-view-index-page.css">
+    <link rel="stylesheet" type="text/css" href="/css/tournament/tournament-view-matches-page.css">
+{% endblock %}
+
+{% block content %}
+    <div class="events-page">
+        <div class="event-hub">
+            <h1 class="event-hub-title">{{ tournament.name }}</h1>
+            <div class="event-hub-bottom">
+                <a href="/tournament/{{ tournament.id }}" class="event-hub-link">Информация</a>
+                <a href="/tournament/{{ tournament.id }}?tab=matches" class="event-hub-link active">Матчи</a>
+                <a href="/tournament/{{ tournament.id }}?tab=stats" class="event-hub-link ">Статистика</a>
+            </div>
+        </div>
+        <div class="headline-flex">
+            <h1 class="upcoming-headline">Список матчей</h1>
+        </div>
+        <div class="matchesSection">
+            {% for game in tournament.games %}
+                <div class="matches removeBackground">
+                    <a href="/match/{{ game.id }}" class="match a-reset">
+                        <div class="matchTeams text-ellipsis">
+                            <div class="matchTeam team1">
+                                <div class="matchTeamName text-ellipsis">{{ game.teamA.name }}</div>
+                            </div>
+                            <div class="matchTeam team2">
+                                <div class="matchTeamName text-ellipsis">{{ game.teamB.name }}</div>
+                            </div>
+                        </div>
+                        <div class="matchEvent">
+                            <div class="matchEventName">
+                                {{ game.map.name }}  {{ game.score }}
+                            </div>
+                        </div>
+                        <div class="map-name-holder">
+                            <img
+                                    alt="{{ game.map.name }}"
+                                    src="/img/maps/{{ game.map.name }}.png"
+                                    class="minimap"
+                                    title="{{ game.map.name }}"
+                                    height="32px"
+                            >
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

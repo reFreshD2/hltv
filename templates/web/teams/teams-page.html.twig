@@ -1,0 +1,40 @@
+{% extends 'web/web.base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/teams/teams-page.css">
+{% endblock %}
+
+{% block content %}
+    <div class="standard-headline">Список команд</div>
+    <table class="stats-table player-ratings-table">
+        <thead>
+        <tr class="stats-table-row">
+            <th class="teamCol-teams-overview" role="columnheader">Название команды</th>
+            <th class="mapsCol-teams-overview" role="columnheader">Сыграно карт</th>
+            <th class="kdDiffCol-teams-overview" role="columnheader">K-D&nbsp;разница</th>
+            <th class="kdCol-teams-overview" role="columnheader">KDA</th>
+            <th class="ratingCol-teams-overview" role="columnheader">Рейтинг</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for teamStat in teamsStats %}
+            <tr>
+                <td class="teamCol-teams-overview">
+                    <a href="/teams/{{ teamStat.team.id }}">{{ teamStat.team.name }}</a>
+                </td>
+                <td class="statsDetail">{{ teamStat.mapsPlayed }}</td>
+                <td class="kdDiffCol {% if teamStat.kdDiff > 0 %}
+                    won
+                    {% else %}
+                    lose
+                    {% endif %}
+                ">
+                    {{ teamStat.kdDiff }}
+                </td>
+                <td class="statsDetail">{{ teamStat.kda }}</td>
+                <td class="ratingCol">{{ teamStat.rating }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

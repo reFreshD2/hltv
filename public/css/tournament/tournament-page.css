@@ -1,0 +1,75 @@
+.events-page .event-status-headline {
+    font-size: 20px;
+    color: #292929;
+    opacity: 1;
+    font-weight: 700;
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+
+.events-page .events-holder {
+    margin-top: 5px;
+}
+
+.events-page .small-event {
+    margin-top: 3px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.a-reset {
+    color: inherit;
+    font-weight: inherit;
+}
+
+.standard-box {
+    box-shadow: 0 1px 2px 0 rgb(50 50 50 / 40%);
+    background-color: #fff;
+}
+
+.events-page .small-event .table-holder {
+    width: calc(100% - 34px);
+}
+
+.events-page .small-event .table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table {
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+}
+
+.events-page .event-col {
+    width: 60%;
+    max-width: 0;
+}
+
+.events-page .col-value {
+    font-weight: 700;
+}
+
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.events-page .small-col {
+    width: 13.3333%;
+}
+
+.events-page .eventDetails {
+    line-height: 10px;
+}
+
+.events-page .col-desc {
+    opacity: .75;
+}

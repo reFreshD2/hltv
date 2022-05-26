@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hltv-farpost{% endblock %}
+
+{% block body %}
+    <form method="post" action="/admin/add_championship">
+        <label for="championship-id"> Id соревнования
+            <input type="text" name="championship-id">
+        </label> <br>
+        <input type="submit" name="submit" value="Отправить">
+    </form>
+{% endblock %}

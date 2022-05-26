@@ -1,0 +1,47 @@
+admin:
+    path: /admin
+    controller: App\Application\Web\Admin\Controller\AdminController
+
+admin_add_championship:
+    path: /admin/add_championship
+    controller: App\Application\Web\Admin\Controller\AdminController::addChampionship
+
+admin_matches:
+    path: /admin/matches
+    controller: App\Application\Web\Admin\Controller\AdminController::getMatches
+
+admin_matches_delete:
+    path: /admin/matches/{id}/delete
+    controller: App\Application\Web\Admin\Controller\AdminController::deleteMatch
+
+main_page:
+    path: /
+    controller: App\Application\Web\Controller\MainPageController
+
+tournament_page:
+    path: /tournament
+    controller: App\Application\Web\Controller\TournamentController
+
+tournament_view_page:
+    path: /tournament/{id}
+    controller: App\Application\Web\Controller\TournamentController::getTournamentView
+
+teams_index:
+    path: /teams
+    controller: App\Application\Web\Controller\TeamController
+
+team_view:
+    path: /teams/{id}
+    controller: App\Application\Web\Controller\TeamController::getTeamView
+
+top:
+    path: /top
+    controller: App\Application\Web\Controller\TopRatingPlayerController
+
+match_view:
+    path: /match/{id}
+    controller: App\Application\Web\Controller\MatchController
+
+player_view:
+    path: /player/{id}
+    controller: App\Application\Web\Controller\PlayerController

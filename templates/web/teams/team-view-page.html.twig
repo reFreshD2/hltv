@@ -1,0 +1,111 @@
+{% extends 'web/web.base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/teams/teams-view-page.css">
+    <link rel="stylesheet" type="text/css" href="/css/tournament/tournament-view-matches-page.css">
+{% endblock %}
+
+{% block content %}
+    <div class="contentCol">
+        <div class="standard-box profileTopBox clearfix">
+            <div style="display: flex">
+                <div class="profile-team-container text-ellipsis">
+                    <div class="profile-team-logo-container">
+                        <img
+                                alt="{{ teamStats.team.name }}"
+                                src="/img/default/team.png"
+                                class="teamlogo"
+                                title="{{ teamStats.team.name }}"
+                        >
+                    </div>
+                    <div class="profile-team-info">
+                        <h1 class="profile-team-name text-ellipsis">{{ teamStats.team.name }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-spacer"></div>
+        <div class="columns">
+            <div class="col standard-box big-padding">
+                <div class="large-strong">{{ teamStats.mapsPlayed }}</div>
+                <div class="small-label-below">Сыграно карт</div>
+            </div>
+            <div class="col standard-box big-padding">
+                <div class="large-strong">{{ teamStats.wins }} / {{ teamStats.loses }}</div>
+                <div class="small-label-below">Победы / Поражения</div>
+            </div>
+            <div class="col standard-box big-padding">
+                <div class="large-strong">{{ teamStats.totalKills }}</div>
+                <div class="small-label-below">Всего убийств</div>
+            </div>
+        </div>
+        <div class="vspace"></div>
+        <div class="columns">
+            <div class="col standard-box big-padding">
+                <div class="large-strong">{{ teamStats.totalDeaths }}</div>
+                <div class="small-label-below">Всего смертей</div>
+            </div>
+            <div class="col standard-box big-padding">
+                <div class="large-strong">{{ teamStats.roundPlayed }}</div>
+                <div class="small-label-below">Сыграно раундов</div>
+            </div>
+            <div class="col standard-box big-padding">
+                <div class="large-strong">{{ teamStats.kda }}</div>
+                <div class="small-label-below">KDA</div>
+            </div>
+        </div>
+        <div>
+            <span class="standard-headline">Состав</span>
+        </div>
+        <div class="grid reset-grid">
+            {% for player in teamStats.team.players %}
+                <div class="col teammate">
+                    <img alt="{{ player.nickname }}"
+                         src="/img/default/player.png"
+                         class="container-width teammate-player-image"
+                         title="{{ player.nickname }}"
+                    >
+                    <div class="teammate-info standard-box">
+                        <a href="/player/{{ player.id }}">
+                            <div class="text-ellipsis">{{ player.nickname }}</div>
+                        </a>
+                        <span>Рейтинг - {{ player.rating }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <span class="standard-headline">Матчи</span>
+        </div>
+        <div class="matchesSection">
+            {% for game in teamStats.team.games %}
+                <div class="matches removeBackground">
+                    <a href="/match/{{ game.id }}" class="match a-reset">
+                        <div class="matchTeams text-ellipsis">
+                            <div class="matchTeam team1">
+                                <div class="matchTeamName text-ellipsis">{{ game.teamA.name }}</div>
+                            </div>
+                            <div class="matchTeam team2">
+                                <div class="matchTeamName text-ellipsis">{{ game.teamB.name }}</div>
+                            </div>
+                        </div>
+                        <div class="matchEvent">
+                            <div class="matchEventName">
+                                {{ game.map.name }}  {{ game.score }}
+                            </div>
+                        </div>
+                        <div class="map-name-holder">
+                            <img
+                                    alt="{{ game.map.name }}"
+                                    src="/img/maps/{{ game.map.name }}.png"
+                                    class="minimap"
+                                    title="{{ game.map.name }}"
+                                    height="32px"
+                            >
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

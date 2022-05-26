@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hltv-farpost{% endblock %}
+
+{% block body %}
+    <div class="navbar">
+        <nav class="navcon">
+            <a class="nav-item" href="/">Главная страница</a>
+            <a class="nav-item" href="/tournament">Турниры</a>
+            <a class="nav-item" href="/teams">Команды</a>
+            <a class="nav-item" href="/top">Рейтинг</a>
+        </nav>
+    </div>
+
+    <div class="bgPadding" style="position: relative;">
+        <div class="widthControl">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

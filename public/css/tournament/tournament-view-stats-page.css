@@ -1,0 +1,45 @@
+.standard-headline {
+    font-size: 12px;
+    font-weight: 700;
+    color: #353535;
+    opacity: .65;
+    margin: 0 0 5px;
+}
+
+.top-x-box {
+    background: #fff;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.standard-box {
+    box-shadow: 0 1px 2px 0 rgb(50 50 50 / 40%);
+    background-color: #fff;
+}
+
+.name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}
+
+.flex-placeholder {
+    flex: 1;
+}
+
+.rating {
+    line-height: 10px;
+    white-space: nowrap;
+}
+
+.average {
+    text-align: right;
+    line-height: 10px;
+    white-space: nowrap;
+    margin-left: 15px;
+}

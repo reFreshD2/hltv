@@ -1,0 +1,89 @@
+.navbar {
+    font-size: 14px;
+    position: fixed;
+    top: 0;
+    z-index: 50000;
+    box-shadow: 0 1px 2px 0 rgb(50 50 50 / 40%);
+    width: 100%;
+    background-color: #fff;
+}
+
+.nav-item {
+    height: 46px;
+    line-height: 46px;
+    vertical-align: middle;
+    color: #353535;
+    font-weight: 400;
+    padding: 0 11px;
+    border-right: 1px solid hsla(0,0%,80%,.65);
+    text-align: center;
+    transition: .2s ease;
+}
+
+html {
+    font-family: Open Sans,sans-serif;
+    overflow-y: scroll;
+    height: 100%;
+    font-size: 12px;
+    line-height: 1.66667;
+}
+
+.navbar .navcon {
+    max-width: 975px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+}
+
+.a-default, a {
+    text-decoration: none;
+    color: #2d6da3;
+}
+
+a {
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+
+.navcon :hover {
+    background: #b3d4fc;
+}
+
+.navcon :hover {
+    text-shadow: none;
+}
+
+.bgPadding {
+    min-height: calc(100vh - 100px);
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #e5e7ea;
+    padding: 10px 0 16px;
+}
+
+.widthControl {
+    padding-right: 10px;
+    padding-left: 10px;
+    max-width: 975px;
+    margin: 0 auto;
+}
+
+body {
+    padding-top: 46px;
+    min-width: 320px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center 46px;
+    margin: 0;
+}
+
+body, html {
+    min-height: 100%;
+    background-color: #000;
+    color: #353535;
+}
+
+
+

@@ -1,0 +1,192 @@
+{% extends 'web/web.base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/match/match-view-page.css">
+    <link rel="stylesheet" type="text/css" href="/css/teams/teams-view-page.css">
+{% endblock %}
+
+{% block content %}
+    <div class="colCon">
+        <div class="contentCol">
+            <div class="standard-box teamsBox">
+                <div class="team">
+                    <div class="team1-gradient">
+                        <a href="/teams/{{ match.teamA.id }}">
+                            <img alt="{{ match.teamA.name }}"
+                                 src="/img/default/team.png"
+                                 class="logo"
+                                 title="{{ match.teamA.name }}"
+                                 height="60px"
+                                 width="120px"
+                            >
+                            <div class="teamName">{{ match.teamA.name }}</div>
+                        </a>
+                        <div class="{% if teamAScore > teamBScore %} won {% else %} lose {% endif %}">
+                            {{ teamAScore }}
+                        </div>
+                    </div>
+                </div>
+                <div class="timeAndEvent">
+                    <img alt="{{ match.map.name }}"
+                         src="/img/maps/{{ match.map.name }}.png"
+                         class="logo"
+                         title="{{ match.map.name }}"
+                         height="50px"
+                    >
+                    <div class="map">{{ match.map.name }}</div>
+                    <div class="event text-ellipsis">
+                        <a href="/tournament/{{ match.tournament.id }}" title="">{{ match.tournament.name }}</a>
+                    </div>
+                    <div class="text dummy-spacer">&nbsp;</div>
+                    <div class="countdown">Матч закончен</div>
+                </div>
+                <div class="team">
+                    <div class="team2-gradient">
+                        <a href="/teams/{{ match.teamB.id }}">
+                            <img alt="{{ match.teamB.name }}"
+                                 src="/img/default/team.png"
+                                 class="logo"
+                                 title="{{ match.teamB.name }}"
+                                 height="60px"
+                                 width="120px">
+                            <div class="teamName">{{ match.teamB.name }}</div>
+                        </a>
+                        <div class="{% if teamBScore > teamAScore %} won {% else %} lose {% endif %}">
+                            {{ teamBScore }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-spacer"></div>
+            <div class="matchstats">
+                <div class="headline">Статистика матча</div>
+                <div>
+                    <table class="table totalstats">
+                        <tbody>
+                        <tr class="header-row">
+                            <td style="width: 100%">
+                                <div class="align-logo">
+                                    <img alt="{{ match.teamA.name }}"
+                                         src="/img/default/team.png"
+                                         title="{{ match.teamA.name }}"
+                                         height="25px"
+                                         width="25px">
+                                    <a href="/teams/{{ match.teamA.id }}" class="teamName" style="margin-left: 5px">
+                                        {{ match.teamA.name }}
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="text-center" style="width: 50px">K/D/A</td>
+                            <td class="text-center" style="width: 70px">% хэдшотов</td>
+                            <td class="text-center" style="width: 70px">3x убийств</td>
+                            <td class="text-center" style="width: 70px">4x убийств</td>
+                            <td class="text-center" style="width: 70px">5x убийств</td>
+                            <td class="text-center" style="width: 30px">MVPs</td>
+                        </tr>
+                        {% for stat in teamAStats %}
+                            <tr>
+                                <td>
+                                    <a href="/player/{{ stat.player.id }}">
+                                        <div class="statsPlayerName">{{ stat.player.nickname }}</div>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    {{ stat.kills }} / {{ stat.deaths }} / {{ stat.assists }}
+                                </td>
+                                <td class="text-center">{{ (stat.hs / stat.kills * 100)|round }}</td>
+                                <td class="text-center">{{ stat.tripleKills }}</td>
+                                <td class="text-center">{{ stat.quadroKills }}</td>
+                                <td class="text-center">{{ stat.pentaKills }}</td>
+                                <td class="text-center">{{ stat.mvp }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <table class="table totalstats">
+                        <tbody>
+                        <tr class="header-row">
+                            <td style="width: 100%">
+                                <div class="align-logo">
+                                    <img alt="{{ match.teamB.name }}"
+                                         src="/img/default/team.png"
+                                         title="{{ match.teamB.name }}"
+                                         height="25px"
+                                         width="25px">
+                                    <a href="/teams/{{ match.teamB.id }}" class="teamName" style="margin-left: 5px">
+                                        {{ match.teamB.name }}
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="text-center" style="width: 50px">K/D/A</td>
+                            <td class="text-center" style="width: 70px">% хэдшотов</td>
+                            <td class="text-center" style="width: 70px">3x убийств</td>
+                            <td class="text-center" style="width: 70px">4x убийств</td>
+                            <td class="text-center" style="width: 70px">5x убийств</td>
+                            <td class="text-center" style="width: 30px">MVPs</td>
+                        </tr>
+                        {% for stat in teamBStats %}
+                            <tr>
+                                <td>
+                                    <a href="/player/{{ stat.player.id }}">
+                                        <div class="statsPlayerName">{{ stat.player.nickname }}</div>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    {{ stat.kills }} / {{ stat.deaths }} / {{ stat.assists }}
+                                </td>
+                                <td class="text-center">{{ (stat.hs / stat.kills * 100)|round  }}</td>
+                                <td class="text-center">{{ stat.tripleKills }}</td>
+                                <td class="text-center">{{ stat.quadroKills }}</td>
+                                <td class="text-center">{{ stat.pentaKills }}</td>
+                                <td class="text-center">{{ stat.mvp }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="section-spacer"></div>
+            <div class="lineups">
+                <span class="headline">Составы</span>
+                <div class="section-spacer"></div>
+                <span class="headline">{{ match.teamA.name }}</span>
+                <div class="grid reset-grid">
+                    {% for player in match.teamA.players %}
+                        <div class="col teammate">
+                            <img alt="{{ player.nickname }}"
+                                 src="/img/default/player.png"
+                                 class="container-width teammate-player-image"
+                                 title="{{ player.nickname }}"
+                            >
+                            <div class="teammate-info standard-box">
+                                <a href="/player/{{ player.id }}">
+                                    <div class="text-ellipsis">{{ player.nickname }}</div>
+                                </a>
+                                <span>Рейтинг - {{ player.rating }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="section-spacer"></div>
+                <span class="headline">{{ match.teamB.name }}</span>
+                <div class="grid reset-grid">
+                    {% for player in match.teamB.players %}
+                        <div class="col teammate">
+                            <img alt="{{ player.nickname }}"
+                                 src="/img/default/player.png"
+                                 class="container-width teammate-player-image"
+                                 title="{{ player.nickname }}"
+                            >
+                            <div class="teammate-info standard-box">
+                                <a href="/player/{{ player.id }}">
+                                    <div class="text-ellipsis">{{ player.nickname }}</div>
+                                </a>
+                                <span>Рейтинг - {{ player.rating }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'web/web.base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/tournament/tournament-page.css">
+{% endblock %}
+
+{% block content %}
+    <div class="events-page">
+        <h1 class="event-status-headline">Турниры</h1>
+        <div class="events-holder">
+            {% for tournament in tournaments %}
+                <a href="/tournament/{{ tournament.id }}" class="a-reset small-event standard-box">
+                    <div class="table-holder">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td class="col-value event-col">
+                                    <div class="text-ellipsis">{{ tournament.name }}</div>
+                                </td>
+                                <td class="col-value small-col">{{ countTeam[loop.index0] }}</td>
+                            </tr>
+                            <tr class="eventDetails">
+                                <td class="col-desc">Название</td>
+                                <td class="col-desc">Количество команд</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

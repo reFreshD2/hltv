@@ -1,0 +1,46 @@
+.event-hub {
+    overflow: hidden;
+    box-shadow: 0 1px 2px 0 rgb(50 50 50 / 40%);
+    background-color: #fff;
+}
+
+.event-hub .event-hub-title {
+    color: #161a1f;
+    bottom: 4px;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    z-index: 2;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.event-hub .event-hub-bottom {
+    display: flex;
+}
+
+.event-hub .event-hub-link.active {
+    font-weight: 700;
+    background-color: #161a1f;
+    color: #fff;
+}
+
+.event-hub .event-hub-link:first-child {
+    border-left: 0;
+}
+
+.event-hub .event-hub-link {
+    color: hsla(0,0%,100%,.85);
+    flex: 1 auto;
+    text-align: center;
+    height: 35px;
+    border-left: 1px solid #495763;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    background-color: #232a30;
+}

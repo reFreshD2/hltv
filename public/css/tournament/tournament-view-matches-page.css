@@ -1,0 +1,80 @@
+.headline-flex {
+    display: flex;
+    height: 32px;
+    align-items: center;
+    margin: 0;
+    justify-content: space-between;
+    position: relative;
+    z-index: 3;
+}
+
+.matchesSection {
+    box-shadow: 0 1px 2px 0 rgb(50 50 50 / 40%);
+    background-color: #fff;
+    margin-bottom: 16px;
+}
+
+.matches {
+    display: flex;
+    cursor: pointer;
+    padding: 0 16px;
+    height: 52px;
+    border-bottom: 1px solid #ccc;
+}
+
+.match {
+    display: flex;
+    flex: 1 auto;
+    max-width: calc(100% - 45px);
+}
+
+.a-reset {
+    color: inherit;
+    font-weight: inherit;
+}
+
+.matchTeams {
+    flex: 1 auto;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.matchEvent {
+    align-items: center;
+    flex: 0 0 230px;
+    font-size: 10px;
+    color: rgba(53,53,53,.45);
+}
+
+.matchEventName {
+    white-space: pre-line;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow-y: hidden;
+}
+
+.map-name-holder {
+    position: relative;
+    padding-bottom: 5%;
+    height: 0;
+    overflow: hidden;
+    flex: 0 0 45px;
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+img {
+    max-width: 100%;
+    width: 100%;
+    vertical-align: middle;
+    border-style: none;
+}

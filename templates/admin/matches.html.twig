@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/admin/admin.css">
+{% endblock %}
+
+{% block body %}
+    <table>
+        <tr>
+            <td>id</td>
+            <td>teamA</td>
+            <td>teamB</td>
+            <td>score</td>
+            <td>action</td>
+        </tr>
+        {% for match in matches %}
+            <tr>
+                <td>{{ match.id }}</td>
+                <td>{{ match.teamA.name }}</td>
+                <td>{{ match.teamB.name }}</td>
+                <td>{{ match.score }}</td>
+                <td><a href="/admin/matches/{{ match.id }}/delete">Удалить</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

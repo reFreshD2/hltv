@@ -1,0 +1,25 @@
+{% extends 'web/web.base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/top/top-page.css">
+{% endblock %}
+
+{% block content %}
+    <div class="standard-headline">Топ игроков по рейтингу</div>
+    {% for player in players %}
+        <div class="top-x-box standard-box">
+            <a href="/player/{{ player.id }}" class="name" rel="noopener">{{ player.nickname }}</a>
+            <div class="flex-placeholder"></div>
+            <a href="/teams/{{ player.teams.last.id }}">
+                <div class="average">
+                    <span class="bold">{{ player.teams.last.name }}</span>
+                    <br>Команда
+                </div>
+            </a>
+            <div class="rating">
+                <span class="bold">{{ player.rating }}</span>
+                <br>Рейтинг
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

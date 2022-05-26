@@ -1,0 +1,33 @@
+parameters:
+    token: '%env(string:FACEIT_TOKEN)%'
+    host: '%env(FACEIT_URI)%'
+
+services:
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    GuzzleHttp\Client:
+        arguments:
+            $config:
+                base_uri: '%host%'
+
+    GuzzleHttp\ClientInterface:
+        alias: 'GuzzleHttp\Client'
+
+    App\Infrastructure\Faceit\Client:
+        arguments:
+            $host: '%host%'
+            $token: '%token%'
+
+    App\Infrastructure\Faceit\ClientInterface:
+        alias: 'App\Infrastructure\Faceit\Client'
+
+    App\Application\Web\Admin\Controller\AdminController: ~

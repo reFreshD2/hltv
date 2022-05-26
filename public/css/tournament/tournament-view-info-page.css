@@ -1,0 +1,98 @@
+.teams-attending-header-con {
+    position: relative;
+}
+
+.section-header {
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+    grid-gap: 20px;
+    grid-auto-rows: 1fr;
+}
+
+.teams-attending .team-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.standard-box {
+    box-shadow: 0 1px 2px 0 rgb(50 50 50 / 40%);
+    background-color: #fff;
+}
+
+.teams-attending .team-box .team-name {
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+    padding: 0 18px;
+    box-sizing: border-box;
+}
+
+.teams-attending .team-box .text-container {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teams-attending .team-box .team-name .text {
+    white-space: pre-line;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.teams-attending .team-box .lineup-box {
+    width: 90%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.teams-attending .team-box .player {
+    z-index: 1;
+}
+
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.logo-bg {
+    position: absolute;
+    opacity: .1;
+    text-align: center;
+    height: 90px;
+    width: 90px;
+    -o-object-fit: contain;
+    object-fit: contain;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo {
+    height: 90px;
+    max-width: 90%;
+    -o-object-fit: contain;
+    object-fit: contain;
+    overflow: hidden;
+}
