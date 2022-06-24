@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  nginx:
+    build: ./build/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./:/var/www/hltv
+      - ./build/nginx/certbot/www/:/var/www/certbot/:ro
+      - ./build/nginx/certbot/conf/:/etc/letsencrypt/:ro
+    links:
+      - php
+    networks:
+      default:
+        aliases:
+          - farpost-hltv.ru
+
+  php:
+    build: ./build/php
+    links:
+      - mysql
+    volumes:
+      - ./:/var/www/hltv
+    expose:
+      - '9000'
+    environment:
+      VIRTUAL_HOST: farpost-hltv.ru
+
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - data-mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=hltv
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    expose:
+      - '3306'
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./build/nginx/certbot/www/:/var/www/certbot/:rw
+      - ./build/nginx/certbot/conf/:/etc/letsencrypt/:rw
+
+volumes:
+  data-mysql: {}

@@ -1,0 +1,19 @@
+name: test
+on:
+  push:
+    branches-ignore:
+      - master
+jobs:
+  unit_test:
+    runs-on: ubuntu-latest
+    container: refreshjss/alpine-pipeline:1.0
+    steps:
+      - run: php /usr/bin/composer install
+      - run: ./vendor/bin/phpunit tests
+  code-analyse:
+    runs-on: ubuntu-latest
+    container: refreshjss/alpine-pipeline:1.0
+    steps:
+      - run: php /usr/bin/composer install
+      - run: ./vendor/bin/phpstan analyse -c phpstan.neon
+
