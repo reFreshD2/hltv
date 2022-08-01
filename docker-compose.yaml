@@ -7,16 +7,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./:/var/www/hltv
-      - ./build/nginx/certbot/www/:/var/www/certbot/:ro
-      - ./build/nginx/certbot/conf/:/etc/letsencrypt/:ro
     links:
       - php
-    networks:
-      default:
-        aliases:
-          - farpost-hltv.ru
 
   php:
     build: ./build/php
@@ -24,10 +17,9 @@ services:
       - mysql
     volumes:
       - ./:/var/www/hltv
+      - ./profiles:/tmp/docker-profiles
     expose:
       - '9000'
-    environment:
-      VIRTUAL_HOST: farpost-hltv.ru
 
   mysql:
     image: mysql:8.0
@@ -39,11 +31,12 @@ services:
     expose:
       - '3306'
 
-  certbot:
-    image: certbot/certbot:latest
+  xdebug-viewer:
+    image: jokkedk/webgrind:latest
     volumes:
-      - ./build/nginx/certbot/www/:/var/www/certbot/:rw
-      - ./build/nginx/certbot/conf/:/etc/letsencrypt/:rw
+      - ./profiles:/tmp
+    ports:
+      - "8080:80"
 
 volumes:
   data-mysql: {}
