@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  nginx:
+    build: ./build/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www/hltv
+    links:
+      - php
+
+  php:
+    build: ./build/php
+    links:
+      - mysql
+    volumes:
+      - ./:/var/www/hltv
+      - ./profiles:/tmp/docker-profiles
+    expose:
+      - '9000'
+
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - data-mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=hltv
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    expose:
+      - '3306'
+
+  xdebug-viewer:
+    image: jokkedk/webgrind:latest
+    volumes:
+      - ./profiles:/tmp
+    ports:
+      - "8080:80"
+
+volumes:
+  data-mysql: {}
