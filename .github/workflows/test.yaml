@@ -21,7 +21,7 @@ jobs:
           tools: phpcs
 
       - name: Set up ENV
-        run: echo "APP_ENV=${env.STAGE}" > ${PWD}/.env.local
+        run: echo APP_ENV=${{env.STAGE}} > ${PWD}/.env.local
 
       - name: Install dev PHP dependencies
         if: ${{ env.STAGE == 'dev' }}
