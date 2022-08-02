@@ -94,7 +94,7 @@ class TournamentService
         $this->tournamentRepository->add($tournament, false);
         foreach ($matchesDTO as $matchDTO) {
             $gamesStatsDTO = $this->faceitClient->getMatchStats($matchDTO->getMatchId());
-            if (!$gamesStatsDTO){
+            if (!$gamesStatsDTO) {
                 continue;
             }
 
