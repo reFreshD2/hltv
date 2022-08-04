@@ -48,18 +48,14 @@ class TournamentController extends AbstractController
 
         switch ($tab) {
             case 'matches':
-            {
                 return $this->render('web/tournament/tournament-view-matches.html.twig', [
                     'tournament' => $tournament,
                 ]);
-            }
             case 'stats':
-            {
                 return $this->render('web/tournament/tournament-view-stats.html.twig', [
                     'tournament' => $tournament,
                     'topPlayers' => $this->statisticService->getTournamentTopPlayer($tournament),
                 ]);
-            }
             default:
                 return $this->render('web/tournament/tournament-view-index.html.twig', [
                     'tournament' => $tournament,

@@ -69,7 +69,11 @@ class Client implements ClientInterface
 
         $content = json_decode($response->getBody()->getContents(), true);
         $content = $content['items'];
-        return $this->serializer->deserialize(json_encode($content), 'array <' . ChampionshipMatchDTO::class . '>', 'json');
+        return $this->serializer->deserialize(
+            json_encode($content),
+            'array <' . ChampionshipMatchDTO::class . '>',
+            'json'
+        );
     }
 
     /**
