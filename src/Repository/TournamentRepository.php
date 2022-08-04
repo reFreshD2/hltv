@@ -25,7 +25,7 @@ class TournamentRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Tournament $entity, bool $flush = true): void
+    public function add(Tournament $entity, bool $flush=true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,40 +37,11 @@ class TournamentRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Tournament $entity, bool $flush = true): void
+    public function remove(Tournament $entity, bool $flush=true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
             $this->_em->flush();
         }
     }
-
-    // /**
-    //  * @return Tournament[] Returns an array of Tournament objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Tournament
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

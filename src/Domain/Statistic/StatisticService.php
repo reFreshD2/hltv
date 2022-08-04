@@ -24,26 +24,29 @@ class StatisticService
         $players = [];
         foreach ($tournament->getGames() as $game) {
             foreach ($game->getStats() as $stat) {
-                $kda = round(($stat->getKills() + $stat->getAssists()) / $stat->getDeaths(), 2);
-                if (!isset($players[$stat->getPlayer()->getId()])) {
+                $kda = round((($stat->getKills() + $stat->getAssists()) / $stat->getDeaths()), 2);
+                if (isset($players[$stat->getPlayer()->getId()]) === false) {
                     $players[$stat->getPlayer()->getId()] = new TopPlayerDTO($stat->getPlayer(), $kda, 1);
                 } else {
                     $dto = $players[$stat->getPlayer()->getId()];
                     $dto->incMapPlayed();
-                    $kda = round(($dto->getKda() + $kda) / 2, 2);
+                    $kda = round((($dto->getKda() + $kda) / 2), 2);
                     $dto->setKda($kda);
                     $players[$stat->getPlayer()->getId()] = $dto;
                 }
             }
         }
 
-        usort($players, function (TopPlayerDTO $item1, TopPlayerDTO $item2) {
-            if ($item1->getKda() === $item2->getKda()) {
-                return 0;
-            }
+        usort(
+            $players,
+            function (TopPlayerDTO $item1, TopPlayerDTO $item2) {
+                if ($item1->getKda() === $item2->getKda()) {
+                    return 0;
+                }
 
-            return $item1->getKda() > $item2->getKda() ? -1 : 1;
-        });
+                return ($item1->getKda() > $item2->getKda() ? -1 : 1);
+            }
+        );
 
         return array_slice($players, 0, 8);
     }
@@ -60,12 +63,13 @@ class StatisticService
 
         foreach ($team->getGames() as $game) {
             $scoreArray = explode(' / ', $game->getScore());
-            $roundPlayed += $scoreArray[0] + $scoreArray[1];
+            $roundPlayed += ($scoreArray[0] + $scoreArray[1]);
             if ($scoreArray[0] > $scoreArray[1] xor $team === $game->getTeamA()) {
                 $loses++;
             } else {
                 $wins++;
             }
+
             foreach ($game->getStats() as $stat) {
                 if ($stat->getPlayer()->getTeams()->last() !== $team) {
                     continue;
@@ -80,6 +84,7 @@ class StatisticService
         foreach ($team->getPlayers() as $player) {
             $avgRating += $player->getRating();
         }
+
         $avgRating /= $team->getPlayers()->count();
 
         return (new TeamStatsDTO($team))
@@ -109,12 +114,12 @@ class StatisticService
             $allDeaths += $stat->getDeaths();
             $allAssists += $stat->getAssists();
             $allHs += $stat->getHs();
-            $allMultikills += $stat->getTripleKills() + $stat->getQuadroKills() + $stat->getPentaKills();
+            $allMultikills += ($stat->getTripleKills() + $stat->getQuadroKills() + $stat->getPentaKills());
             $allMvps += $stat->getMvp();
             $mapPlayed++;
             $match = $stat->getGame();
-            $scoreArray =  explode(' / ', $match->getScore());
-            $roundPlayed += $scoreArray[0] + $scoreArray[1];
+            $scoreArray = explode(' / ', $match->getScore());
+            $roundPlayed += ($scoreArray[0] + $scoreArray[1]);
         }
 
         return $dto->setAllAssists($allAssists)

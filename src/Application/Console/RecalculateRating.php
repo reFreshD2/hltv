@@ -15,19 +15,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 class RecalculateRating extends Command
 {
     private const DEFAULT_RATING = 1000;
-
-    /**
-     * @var GameRepository
-     */
-    private $gameRepository;
-    /**
-     * @var PlayerRepository
-     */
-    private $playerRepository;
-    /**
-     * @var RatingService
-     */
-    private $ratingService;
+    private GameRepository $gameRepository;
+    private PlayerRepository $playerRepository;
+    private RatingService $ratingService;
 
     public function __construct(
         GameRepository $gameRepository,
@@ -61,10 +51,9 @@ class RecalculateRating extends Command
             $teamA = $game->getTeamA();
             $teamB = $game->getTeamB();
 
-            if (
-                $prevTeamA !== $teamA
+            if ($prevTeamA !== $teamA
                 || $prevTeamB !== $teamB
-                || (!$teamARating && !$teamBRating)
+                || ($teamARating === null && $teamBRating === null)
             ) {
                 $teamARating = $this->getAvgRating($teamA);
                 $teamBRating = $this->getAvgRating($teamB);
@@ -75,11 +64,11 @@ class RecalculateRating extends Command
                 $player = $stat->getPlayer();
 
                 if ($player->getTeams()->contains($teamA)) {
-                    $isWin = $scoreArray[0] - $scoreArray[1] > 0;
-                    $teamRatingDiff = $teamARating - $teamBRating;
+                    $isWin = ($scoreArray[0] - $scoreArray[1]) > 0;
+                    $teamRatingDiff = ($teamARating - $teamBRating);
                 } else {
-                    $isWin = $scoreArray[1] - $scoreArray[0] > 0;
-                    $teamRatingDiff = $teamBRating - $teamARating;
+                    $isWin = ($scoreArray[1] - $scoreArray[0]) > 0;
+                    $teamRatingDiff = ($teamBRating - $teamARating);
                 }
 
                 $ratingDiff = $this->ratingService->calculateRatingDiff($isWin, $stat, $teamRatingDiff);
@@ -103,6 +92,6 @@ class RecalculateRating extends Command
             $count++;
         }
 
-        return $rating / $count;
+        return ($rating / $count);
     }
 }

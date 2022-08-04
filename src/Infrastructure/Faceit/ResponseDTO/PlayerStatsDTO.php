@@ -11,58 +11,43 @@ class PlayerStatsDTO
     /**
      * @JMS\Type("integer")
      * @JMS\SerializedName("Headshots")
-     * @var int
      */
-    private $headshots;
-
+    private int $headshots;
     /**
      * @JMS\Type("integer")
      * @JMS\SerializedName("Deaths")
-     * @var int
      */
-    private $deaths;
-
+    private int $deaths;
     /**
      * @JMS\Type("integer")
      * @JMS\SerializedName("Triple Kills")
-     * @var int
      */
-    private $tripleKills;
-
+    private int $tripleKills;
     /**
      * @JMS\Type("integer")
      * @JMS\SerializedName("Assists")
-     * @var int
      */
-    private $assists;
-
+    private int $assists;
     /**
      * @JMS\Type("integer")
      * @JMS\SerializedName("Kills")
-     * @var int
      */
-    private $kills;
-
+    private int $kills;
     /**
      * @JMS\Type("integer")
      * @JMS\SerializedName("Penta Kills")
-     * @var int
      */
-    private $pentaKills;
-
+    private int $pentaKills;
     /**
      * @JMS\Type("integer")
      * @JMS\SerializedName("MVPs")
-     * @var int
      */
-    private $mvp;
-
+    private int $mvp;
     /**
      * @JMS\Type("integer")
      * @JMS\SerializedName("Quadro Kills")
-     * @var int
      */
-    private $quadroKills;
+    private int $quadroKills;
 
     public function getAssists(): int
     {

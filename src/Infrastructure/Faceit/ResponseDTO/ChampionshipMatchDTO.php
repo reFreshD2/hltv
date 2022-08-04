@@ -10,15 +10,12 @@ class ChampionshipMatchDTO
 {
     /**
      * @JMS\Type("string")
-     * @var string
      */
-    private $matchId;
-
+    private string $matchId;
     /**
      * @JMS\Type("string")
-     * @var string
      */
-    private $competitionName;
+    private string $competitionName;
 
     public function getMatchId(): string
     {

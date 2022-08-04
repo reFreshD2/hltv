@@ -34,11 +34,12 @@ class RatingService
 
     public function calculateRatingDiff(bool $isWin, Stats $stats, float $avgTeamRatingDiff): float
     {
-        $kda = ($stats->getKills() + $stats->getAssists()) / $stats->getDeaths();
+        $kda = (($stats->getKills() + $stats->getAssists()) / $stats->getDeaths());
         if ($this->detectNeg($kda)) {
             $kda *= -1;
         }
-        $baseRating = $isWin ? self::BASE_RATING_DIFF * $kda : self::BASE_RATING_DIFF / $kda;
+
+        $baseRating = $isWin ? (self::BASE_RATING_DIFF * $kda) : (self::BASE_RATING_DIFF / $kda);
 
         $isNegDiff = $this->detectNeg($avgTeamRatingDiff);
         if ($isNegDiff) {
@@ -57,13 +58,13 @@ class RatingService
             break;
         }
 
-        if (!$ratingDiffMultiplier) {
+        if ($ratingDiffMultiplier !== null) {
             $teamRatingDiff = self::TEAM_RATING_DIFF;
             $multipliers = array_pop($teamRatingDiff);
             $ratingDiffMultiplier = ($isWin xor $isNegDiff) ? $multipliers['less'] : $multipliers['more'];
         }
 
-        return $isWin ? $baseRating * $ratingDiffMultiplier : $baseRating / $ratingDiffMultiplier * -1;
+        return $isWin ? ($baseRating * $ratingDiffMultiplier) : ($baseRating / $ratingDiffMultiplier * -1);
     }
 
     private function detectNeg(float $float): bool

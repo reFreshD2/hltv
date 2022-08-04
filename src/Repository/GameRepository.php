@@ -25,7 +25,7 @@ class GameRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Game $entity, bool $flush = true): void
+    public function add(Game $entity, bool $flush=true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,40 +37,11 @@ class GameRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Game $entity, bool $flush = true): void
+    public function remove(Game $entity, bool $flush=true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
             $this->_em->flush();
         }
     }
-
-    // /**
-    //  * @return Game[] Returns an array of Game objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Game
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

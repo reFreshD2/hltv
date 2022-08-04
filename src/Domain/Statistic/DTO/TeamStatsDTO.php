@@ -8,38 +8,14 @@ use App\Entity\Team;
 
 class TeamStatsDTO
 {
-    /**
-     * @var Team
-     */
-    private $team;
-    /**
-     * @var float
-     */
-    private $rating;
-    /**
-     * @var int
-     */
-    private $wins;
-    /**
-     * @var int
-     */
-    private $loses;
-    /**
-     * @var int
-     */
-    private $totalKills;
-    /**
-     * @var int
-     */
-    private $totalDeaths;
-    /**
-     * @var int
-     */
-    private $totalAssists;
-    /**
-     * @var int
-     */
-    private $roundPlayed;
+    private Team $team;
+    private float $rating;
+    private int $wins;
+    private int $loses;
+    private int $totalKills;
+    private int $totalDeaths;
+    private int $totalAssists;
+    private int $roundPlayed;
 
     public function __construct(Team $team)
     {
@@ -53,17 +29,17 @@ class TeamStatsDTO
 
     public function getMapsPlayed(): int
     {
-        return $this->wins + $this->loses;
+        return ($this->wins + $this->loses);
     }
 
     public function getKdDiff(): int
     {
-        return $this->totalKills - $this->totalDeaths;
+        return ($this->totalKills - $this->totalDeaths);
     }
 
     public function getKda(): float
     {
-        return round(($this->totalKills + $this->totalAssists) / $this->getTotalDeaths(), 2);
+        return round((($this->totalKills + $this->totalAssists) / $this->getTotalDeaths()), 2);
     }
 
     public function getRating(): float

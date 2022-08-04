@@ -8,42 +8,15 @@ use App\Entity\Player;
 
 class PlayerStatsDTO
 {
-    /**
-     * @var Player
-     */
-    private $player;
-    /**
-     * @var int
-     */
-    private $allKills;
-    /**
-     * @var int
-     */
-    private $allAssists;
-    /**
-     * @var int
-     */
-    private $allDeaths;
-    /**
-     * @var int
-     */
-    private $mapPlayed;
-    /**
-     * @var int
-     */
-    private $roundPlayed;
-    /**
-     * @var int
-     */
-    private $allMultikills;
-    /**
-     * @var int
-     */
-    private $allMvps;
-    /**
-     * @var int
-     */
-    private $allHs;
+    private Player $player;
+    private int $allKills;
+    private int $allAssists;
+    private int $allDeaths;
+    private int $mapPlayed;
+    private int $roundPlayed;
+    private int $allMultikills;
+    private int $allMvps;
+    private int $allHs;
 
     public function __construct(Player $player)
     {
@@ -145,31 +118,31 @@ class PlayerStatsDTO
 
     public function getKda(): float
     {
-        return round(($this->allKills + $this->allAssists) / $this->allDeaths, 2);
+        return round((($this->allKills + $this->allAssists) / $this->allDeaths), 2);
     }
 
     public function getKpr(): float
     {
-        return round($this->allKills / $this->roundPlayed, 2);
+        return round(($this->allKills / $this->roundPlayed), 2);
     }
 
     public function getApr(): float
     {
-        return round($this->allAssists / $this->roundPlayed, 2);
+        return round(($this->allAssists / $this->roundPlayed), 2);
     }
 
     public function getDpr(): float
     {
-        return round($this->allDeaths / $this->roundPlayed, 2);
+        return round(($this->allDeaths / $this->roundPlayed), 2);
     }
 
     public function getHsPersent(): float
     {
-        return round($this->allHs / $this->allKills, 2) * 100;
+        return (round(($this->allHs / $this->allKills), 2) * 100);
     }
 
     public function getKd(): float
     {
-        return round($this->allKills  / $this->allDeaths, 2);
+        return round(($this->allKills / $this->allDeaths), 2);
     }
 }

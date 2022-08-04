@@ -21,45 +21,14 @@ use App\Repository\TournamentRepository;
 
 class TournamentService
 {
-    /**
-     * @var ClientInterface
-     */
-    private $faceitClient;
-
-    /**
-     * @var TournamentRepository
-     */
-    private $tournamentRepository;
-
-    /**
-     * @var MapRepository
-     */
-    private $mapRepository;
-
-    /**
-     * @var TeamRepository
-     */
-    private $teamRepository;
-
-    /**
-     * @var PlayerRepository
-     */
-    private $playerRepository;
-
-    /**
-     * @var StatsRepository
-     */
-    private $statsRepository;
-
-    /**
-     * @var GameRepository
-     */
-    private $gameRepository;
-
-    /**
-     * @var RatingService
-     */
-    private $ratingService;
+    private ClientInterface $faceitClient;
+    private TournamentRepository $tournamentRepository;
+    private MapRepository $mapRepository;
+    private TeamRepository $teamRepository;
+    private PlayerRepository $playerRepository;
+    private StatsRepository $statsRepository;
+    private GameRepository $gameRepository;
+    private RatingService $ratingService;
 
     public function __construct(
         ClientInterface $faceitClient,
@@ -84,7 +53,7 @@ class TournamentService
     public function addTournament(string $id): void
     {
         $matchesDTO = $this->faceitClient->getChampionshipMatches($id);
-        if (!$matchesDTO) {
+        if ($matchesDTO === null) {
             return;
         }
 
@@ -94,7 +63,7 @@ class TournamentService
         $this->tournamentRepository->add($tournament, false);
         foreach ($matchesDTO as $matchDTO) {
             $gamesStatsDTO = $this->faceitClient->getMatchStats($matchDTO->getMatchId());
-            if (!$gamesStatsDTO) {
+            if ($gamesStatsDTO === null) {
                 continue;
             }
 
@@ -109,11 +78,12 @@ class TournamentService
 
                 $mapName = $gameStatsDTO->getRoundStats()->getMap();
                 $map = $this->mapRepository->findOneBy(['name' => $mapName]);
-                if (!$map) {
+                if ($map === null) {
                     $map = new Map();
                     $map->setName($mapName);
                     $this->mapRepository->add($map);
                 }
+
                 $match->setMap($map);
                 $tournament->addMap($map);
                 $this->gameRepository->add($match, false);
@@ -122,20 +92,22 @@ class TournamentService
                 foreach ($teamsDTO as $teamDTO) {
                     $teamName = $teamDTO->getTeamStats()->getTeamName();
                     $team = $this->teamRepository->findOneBy(['name' => $teamName]);
-                    if (!$team) {
+                    if ($team === null) {
                         $team = new Team();
                         $team->setName($teamName);
                     }
+
                     $playersDTO = $teamDTO->getPlayers();
                     foreach ($playersDTO as $playerDTO) {
                         $playerId = $playerDTO->getPlayerId();
                         $player = $this->playerRepository->findOneBy(['faceitId' => $playerId]);
-                        if (!$player) {
+                        if ($player === null) {
                             $player = new Player();
                             $player->setFaceitId($playerId);
                             $player->setNickname($playerDTO->getNickname());
                             $this->playerRepository->add($player, false);
                         }
+
                         $team->addPlayer($player);
 
                         $playerStatsDTO = $playerDTO->getPlayerStats();
@@ -155,17 +127,18 @@ class TournamentService
                         $match->addStat($stats);
                     }
 
-                    if ($match->getTeamA()) {
+                    if ($match->getTeamA() !== null) {
                         $match->setTeamB($team);
-                        if (!$teamBRating) {
+                        if ($teamBRating === null) {
                             $teamBRating = $this->getAvgRating($team);
                         }
                     } else {
                         $match->setTeamA($team);
-                        if (!$teamARating) {
+                        if ($teamARating === null) {
                             $teamARating = $this->getAvgRating($team);
                         }
                     }
+
                     $this->teamRepository->add($team, false);
                     $tournament->addTeam($team);
                 }
@@ -175,12 +148,12 @@ class TournamentService
                 foreach ($match->getStats() as $stat) {
                     $player = $stat->getPlayer();
 
-                    if ($player->getTeams()->contains($teamA)) {
-                        $isWin = $scoreArray[0] - $scoreArray[1] > 0;
-                        $teamRatingDiff = $teamARating - $teamBRating;
+                    if ($player->getTeams()->contains($teamA) === true) {
+                        $isWin = ($scoreArray[0] - $scoreArray[1]) > 0;
+                        $teamRatingDiff = ($teamARating - $teamBRating);
                     } else {
-                        $isWin = $scoreArray[1] - $scoreArray[0] > 0;
-                        $teamRatingDiff = $teamBRating - $teamARating;
+                        $isWin = ($scoreArray[1] - $scoreArray[0]) > 0;
+                        $teamRatingDiff = ($teamBRating - $teamARating);
                     }
 
                     $ratingDiff = $this->ratingService->calculateRatingDiff($isWin, $stat, $teamRatingDiff);
@@ -206,6 +179,6 @@ class TournamentService
             $count++;
         }
 
-        return $rating / $count;
+        return ($rating / $count);
     }
 }

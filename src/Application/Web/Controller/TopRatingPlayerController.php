@@ -11,10 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TopRatingPlayerController extends AbstractController
 {
-    /**
-     * @var PlayerRepository
-     */
-    private $playerRepository;
+    private PlayerRepository $playerRepository;
 
     public function __construct(PlayerRepository $playerRepository)
     {
@@ -24,16 +21,16 @@ class TopRatingPlayerController extends AbstractController
     public function __invoke(): Response
     {
         $players = $this->playerRepository->findAll();
-        usort($players, function (Player $player1, Player $player2) {
+        usort(
+            $players, function (Player $player1, Player $player2) {
             if ($player1->getRating() === $player2->getRating()) {
                 return 0;
             }
 
-            return $player1->getRating() > $player2->getRating() ? -1 : 1;
-        });
+            return ($player1->getRating() > $player2->getRating() ? -1 : 1);
+            }
+        );
 
-        return $this->render('web/top/top.html.twig', [
-            'players' => $players,
-        ]);
+        return $this->render('web/top/top.html.twig', ['players' => $players]);
     }
 }
