@@ -11,9 +11,8 @@ class TeamStatsDTO
     /**
      * @JMS\SerializedName("Team")
      * @JMS\Type("string")
-     * @var string
      */
-    private $teamName;
+    private string $teamName;
 
     public function getTeamName(): string
     {

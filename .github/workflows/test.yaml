@@ -1,0 +1,39 @@
+name: test
+env:
+  STAGE: test
+on:
+  push:
+    branches-ignore:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  code-analyse:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+          coverage: none
+          tools: phpcs
+
+      - name: Set up ENV
+        run: echo APP_ENV=${{env.STAGE}} > ${PWD}/.env
+
+      - name: Install dev PHP dependencies
+        if: ${{ env.STAGE == 'test' || env.STAGE == 'dev' }}
+        run: composer install --dev --prefer-dist --no-progress --no-ansi --no-interaction
+
+      - name: Install prod PHP dependencies
+        if: ${{ env.STAGE == 'prod' }}
+        run: composer install --prefer-dist --no-progress --no-ansi --no-interaction
+
+      - name: Run lint
+        run: php ${PWD}/vendor/bin/phpcs

@@ -10,15 +10,13 @@ class TeamDTO
 {
     /**
      * @JMS\Type("App\Infrastructure\Faceit\ResponseDTO\TeamStatsDTO")
-     * @var TeamStatsDTO
      */
-    private $teamStats;
-
+    private TeamStatsDTO $teamStats;
     /**
      * @JMS\Type("array<App\Infrastructure\Faceit\ResponseDTO\PlayerDTO>")
-     * @var array
+     * @var PlayerDTO[]
      */
-    private $players;
+    private array $players;
 
     /**
      * @return PlayerDTO[]

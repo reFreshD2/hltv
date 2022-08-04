@@ -8,18 +8,9 @@ use App\Entity\Player;
 
 class TopPlayerDTO
 {
-    /**
-     * @var Player
-     */
-    private $player;
-    /**
-     * @var float
-     */
-    private $kda;
-    /**
-     * @var int
-     */
-    private $mapPlayed;
+    private Player $player;
+    private float $kda;
+    private int $mapPlayed;
 
     public function __construct(Player $player, float $kda, int $mapPlayed)
     {

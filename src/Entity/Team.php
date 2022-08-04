@@ -17,34 +17,28 @@ class Team
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
-
+    private ?int $id;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
-
+    private ?string $name;
     /**
      * @ORM\ManyToMany(targetEntity=Player::class, inversedBy="teams")
      */
-    private $players;
-
+    private ArrayCollection $players;
     /**
      * @ORM\ManyToMany(targetEntity=Tournament::class, mappedBy="teams")
      */
-    private $tournaments;
-
+    private ArrayCollection $tournaments;
     /**
      * @ORM\OneToMany(targetEntity=Game::class, mappedBy="teamA")
      */
-    private $gamesAsATeam;
-
+    private ArrayCollection $gamesAsATeam;
     /**
      * @ORM\OneToMany(targetEntity=Game::class, mappedBy="teamB")
      */
-    private $gamesAsBTeam;
-
-    private $games;
+    private ArrayCollection $gamesAsBTeam;
+    private ArrayCollection $games;
 
     public function __construct()
     {
@@ -82,7 +76,7 @@ class Team
 
     public function addPlayer(Player $player): self
     {
-        if (!$this->players->contains($player)) {
+        if ($this->players->contains($player) === false) {
             $this->players[] = $player;
         }
 
@@ -106,7 +100,7 @@ class Team
 
     public function addTournament(Tournament $tournament): self
     {
-        if (!$this->tournaments->contains($tournament)) {
+        if ($this->tournaments->contains($tournament) === false) {
             $this->tournaments[] = $tournament;
             $tournament->addTeam($this);
         }

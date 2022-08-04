@@ -15,59 +15,49 @@ class Stats
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
-
+    private ?int $id;
     /**
      * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="stats")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $player;
-
+    private ?Player $player;
     /**
      * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="stats")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $game;
-
+    private ?Game $game;
     /**
      * @ORM\Column(type="integer")
      */
-    private $kills;
-
+    private ?int $kills;
     /**
      * @ORM\Column(type="integer")
      */
-    private $assists;
-
+    private ?int $assists;
     /**
      * @ORM\Column(type="integer")
      */
-    private $deaths;
-
+    private ?int $deaths;
     /**
      * @ORM\Column(type="integer")
      */
-    private $hs;
-
+    private ?int $hs;
     /**
      * @ORM\Column(type="integer")
      */
-    private $mvp;
-
+    private ?int $mvp;
     /**
      * @ORM\Column(type="integer")
      */
-    private $tripleKills;
-
+    private ?int $tripleKills;
     /**
      * @ORM\Column(type="integer")
      */
-    private $quadroKills;
-
+    private ?int $quadroKills;
     /**
      * @ORM\Column(type="integer")
      */
-    private $pentaKills;
+    private ?int $pentaKills;
 
     public function getId(): ?int
     {

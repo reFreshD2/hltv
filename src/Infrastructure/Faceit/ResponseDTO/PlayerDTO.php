@@ -10,21 +10,16 @@ class PlayerDTO
 {
     /**
      * @JMS\Type("string")
-     * @var string
      */
-    private $playerId;
-
+    private string $playerId;
     /**
      * @JMS\Type("string")
-     * @var string
      */
-    private $nickname;
-
+    private string $nickname;
     /**
      * @JMS\Type("App\Infrastructure\Faceit\ResponseDTO\PlayerStatsDTO")
-     * @var PlayerStatsDTO
      */
-    private $playerStats;
+    private PlayerStatsDTO $playerStats;
 
     public function getPlayerId(): string
     {

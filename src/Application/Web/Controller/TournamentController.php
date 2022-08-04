@@ -12,14 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TournamentController extends AbstractController
 {
-    /**
-     * @var TournamentRepository
-     */
-    private $tournamentRepository;
-    /**
-     * @var StatisticService
-     */
-    private $statisticService;
+    private TournamentRepository $tournamentRepository;
+    private StatisticService $statisticService;
 
     public function __construct(TournamentRepository $tournamentRepository, StatisticService $statisticService)
     {
@@ -35,10 +29,13 @@ class TournamentController extends AbstractController
             $countTeams[] = $tournament->getTeams()->count();
         }
 
-        return $this->render('web/tournament/tournament.html.twig', [
-            'tournaments' => $tournaments,
-            'countTeam' => $countTeams,
-        ]);
+        return $this->render(
+            'web/tournament/tournament.html.twig',
+            [
+                'tournaments' => $tournaments,
+                'countTeam' => $countTeams,
+            ]
+        );
     }
 
     public function getTournamentView(Request $request, string $id): Response
@@ -48,22 +45,23 @@ class TournamentController extends AbstractController
 
         switch ($tab) {
             case 'matches':
-            {
-                return $this->render('web/tournament/tournament-view-matches.html.twig', [
-                    'tournament' => $tournament,
-                ]);
-            }
+                return $this->render(
+                    'web/tournament/tournament-view-matches.html.twig',
+                    ['tournament' => $tournament]
+                );
             case 'stats':
-            {
-                return $this->render('web/tournament/tournament-view-stats.html.twig', [
-                    'tournament' => $tournament,
-                    'topPlayers' => $this->statisticService->getTournamentTopPlayer($tournament),
-                ]);
-            }
+                return $this->render(
+                    'web/tournament/tournament-view-stats.html.twig',
+                    [
+                        'tournament' => $tournament,
+                        'topPlayers' => $this->statisticService->getTournamentTopPlayer($tournament),
+                    ]
+                );
             default:
-                return $this->render('web/tournament/tournament-view-index.html.twig', [
-                    'tournament' => $tournament,
-                ]);
+                return $this->render(
+                    'web/tournament/tournament-view-index.html.twig',
+                    ['tournament' => $tournament]
+                );
         }
     }
 }

@@ -10,19 +10,14 @@ class MatchStatsDTO
 {
     /**
      * @JMS\Type("App\Infrastructure\Faceit\ResponseDTO\RoundStatsDTO")
-     * @var RoundStatsDTO
      */
-    private $roundStats;
-
+    private RoundStatsDTO $roundStats;
     /**
      * @JMS\Type("array<App\Infrastructure\Faceit\ResponseDTO\TeamDTO>")
-     * @var array
+     * @var TeamDTO[]
      */
-    private $teams;
+    private array $teams;
 
-    /**
-     * @return mixed
-     */
     public function getRoundStats(): RoundStatsDTO
     {
         return $this->roundStats;

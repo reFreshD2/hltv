@@ -1,5 +1,5 @@
 {
-    "name": "hltv",
+    "name": "refreshd2/hltv",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -27,6 +27,7 @@
     },
     "require-dev": {
         "php": "*",
+        "squizlabs/php_codesniffer": "*",
         "symfony/maker-bundle": "^1.40"
     },
     "config": {

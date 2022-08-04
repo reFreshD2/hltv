@@ -13,26 +13,11 @@ use Psr\Log\LoggerInterface;
 
 class Client implements ClientInterface
 {
-    /**
-     * @var HttpClientInterface $httpClient
-     */
-    private $httpClient;
-    /**
-     * @var string $token
-     */
-    private $token;
-    /**
-     * @var string $host
-     */
-    private $host;
-    /**
-     * @var LoggerInterface $logger
-     */
-    private $logger;
-    /**
-     * @var SerializerInterface $serializer
-     */
-    private $serializer;
+    private HttpClientInterface $httpClient;
+    private string $token;
+    private string $host;
+    private LoggerInterface $logger;
+    private SerializerInterface $serializer;
 
     public function __construct(
         HttpClientInterface $httpClient,
@@ -60,16 +45,23 @@ class Client implements ClientInterface
                 $this->getAuthHeader()
             );
         } catch (GuzzleException $e) {
-            $this->logger->error('Error while get championship matches', [
-                'championshipId' => $championshipId,
-                'error' => $e->getMessage(),
-            ]);
+            $this->logger->error(
+                'Error while get championship matches',
+                [
+                    'championshipId' => $championshipId,
+                    'error' => $e->getMessage(),
+                ]
+            );
             return null;
         }
 
         $content = json_decode($response->getBody()->getContents(), true);
         $content = $content['items'];
-        return $this->serializer->deserialize(json_encode($content), 'array <' . ChampionshipMatchDTO::class . '>', 'json');
+        return $this->serializer->deserialize(
+            json_encode($content),
+            'array <'.ChampionshipMatchDTO::class.'>',
+            'json'
+        );
     }
 
     /**
@@ -84,24 +76,25 @@ class Client implements ClientInterface
                 $this->getAuthHeader()
             );
         } catch (GuzzleException $e) {
-            $this->logger->error('Error while get match stats', [
-                'championshipId' => $matchId,
-                'error' => $e->getMessage(),
-            ]);
+            $this->logger->error(
+                'Error while get match stats',
+                [
+                    'championshipId' => $matchId,
+                    'error' => $e->getMessage(),
+                ]
+            );
             return null;
         }
 
         $content = json_decode($response->getBody()->getContents(), true);
         $content = $content['rounds'];
-        return $this->serializer->deserialize(json_encode($content), 'array <' . MatchStatsDTO::class . '>', 'json');
+        return $this->serializer->deserialize(json_encode($content), 'array <'.MatchStatsDTO::class.'>', 'json');
     }
 
     private function getAuthHeader(): array
     {
         return [
-            'headers' => [
-                'Authorization' => "Bearer $this->token",
-            ],
+            'headers' => ['Authorization' => "Bearer $this->token"],
         ];
     }
 }

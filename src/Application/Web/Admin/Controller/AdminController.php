@@ -13,18 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends AbstractController
 {
-    /**
-     * @var TournamentService
-     */
-    private $tournamentService;
-    /**
-     * @var GameRepository
-     */
-    private $matchesRepository;
-    /**
-     * @var StatsRepository
-     */
-    private $statsRepository;
+    private TournamentService $tournamentService;
+    private GameRepository $matchesRepository;
+    private StatsRepository $statsRepository;
 
     public function __construct(
         TournamentService $tournamentService,
@@ -51,9 +42,12 @@ class AdminController extends AbstractController
 
     public function getMatches(): Response
     {
-        return $this->render('admin/matches.html.twig', [
-            'matches' => $this->matchesRepository->findAll(),
-        ]);
+        return $this->render(
+            'admin/matches.html.twig',
+            [
+                'matches' => $this->matchesRepository->findAll(),
+            ]
+        );
     }
 
     public function deleteMatch(string $id): Response
@@ -63,6 +57,7 @@ class AdminController extends AbstractController
         foreach ($match->getStats() as $stat) {
             $this->statsRepository->remove($stat, false);
         }
+
         $this->matchesRepository->remove($match);
 
         return $this->redirect('/admin/matches');

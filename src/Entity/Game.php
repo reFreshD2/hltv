@@ -17,41 +17,35 @@ class Game
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
-
+    private ?int $id;
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="gamesAsATeam")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $teamA;
-
+    private ?Team $teamA;
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="gamesAsBTeam")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $teamB;
-
+    private ?Team $teamB;
     /**
      * @ORM\ManyToOne(targetEntity=Tournament::class, inversedBy="games")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $tournament;
-
+    private ?Tournament $tournament;
     /**
      * @ORM\ManyToOne(targetEntity=Map::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $map;
-
+    private ?Map $map;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $score;
-
+    private ?string $score;
     /**
      * @ORM\OneToMany(targetEntity=Stats::class, mappedBy="game")
      */
-    private $stats;
+    private ArrayCollection $stats;
 
     public function __construct()
     {
@@ -133,7 +127,7 @@ class Game
 
     public function addStat(Stats $stat): self
     {
-        if (!$this->stats->contains($stat)) {
+        if ($this->stats->contains($stat) === false) {
             $this->stats[] = $stat;
             $stat->setGame($this);
         }

@@ -17,27 +17,23 @@ class Tournament
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
-
+    private ?int $id;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
-
+    private ?string $name;
     /**
      * @ORM\ManyToMany(targetEntity=Team::class, inversedBy="tournaments")
      */
-    private $teams;
-
+    private ArrayCollection $teams;
     /**
      * @ORM\ManyToMany(targetEntity=Map::class)
      */
-    private $maps;
-
+    private ArrayCollection $maps;
     /**
      * @ORM\OneToMany(targetEntity=Game::class, mappedBy="tournament")
      */
-    private $games;
+    private ArrayCollection $games;
 
     public function __construct()
     {
@@ -73,7 +69,7 @@ class Tournament
 
     public function addTeam(Team $team): self
     {
-        if (!$this->teams->contains($team)) {
+        if ($this->teams->contains($team) === false) {
             $this->teams[] = $team;
         }
 
@@ -97,7 +93,7 @@ class Tournament
 
     public function addMap(Map $map): self
     {
-        if (!$this->maps->contains($map)) {
+        if ($this->maps->contains($map) === false) {
             $this->maps[] = $map;
         }
 
@@ -121,7 +117,7 @@ class Tournament
 
     public function addGame(Game $game): self
     {
-        if (!$this->games->contains($game)) {
+        if ($this->games->contains($game) === false) {
             $this->games[] = $game;
             $game->setTournament($this);
         }

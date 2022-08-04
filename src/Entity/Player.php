@@ -17,32 +17,27 @@ class Player
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
-
+    private ?int $id;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $faceitId;
-
+    private ?string $faceitId;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nickname;
-
+    private ?string $nickname;
     /**
      * @ORM\ManyToMany(targetEntity=Team::class, mappedBy="players")
      */
-    private $teams;
-
+    private ArrayCollection $teams;
     /**
      * @ORM\OneToMany(targetEntity=Stats::class, mappedBy="player")
      */
-    private $stats;
-
+    private ArrayCollection $stats;
     /**
      * @ORM\Column(type="float")
      */
-    private $rating = 1000;
+    private float $rating = 1000;
 
     public function __construct()
     {
@@ -93,7 +88,7 @@ class Player
 
     public function addTeam(Team $team): self
     {
-        if (!$this->teams->contains($team)) {
+        if ($this->teams->contains($team) === false) {
             $this->teams[] = $team;
             $team->addPlayer($this);
         }
@@ -120,7 +115,7 @@ class Player
 
     public function addStat(Stats $stat): self
     {
-        if (!$this->stats->contains($stat)) {
+        if ($this->stats->contains($stat) === false) {
             $this->stats[] = $stat;
             $stat->setPlayer($this);
         }

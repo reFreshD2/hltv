@@ -11,16 +11,13 @@ class RoundStatsDTO
     /**
      * @JMS\Type("string")
      * @JMS\SerializedName("Map")
-     * @var string
      */
-    private $map;
-
+    private string $map;
     /**
      * @JMS\Type("string")
      * @JMS\SerializedName("Score")
-     * @var string
      */
-    private $score;
+    private string $score;
 
     public function getMap(): string
     {
