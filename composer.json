@@ -27,6 +27,7 @@
     },
     "require-dev": {
         "php": "*",
+        "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "*",
         "symfony/maker-bundle": "^1.40"
     },
