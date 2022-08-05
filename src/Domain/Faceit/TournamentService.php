@@ -151,12 +151,14 @@ class TournamentService
                     if ($player->getTeams()->contains($teamA) === true) {
                         $isWin = ($scoreArray[0] - $scoreArray[1]) > 0;
                         $teamRatingDiff = ($teamARating - $teamBRating);
+                        $winRounds = $scoreArray[0];
                     } else {
                         $isWin = ($scoreArray[1] - $scoreArray[0]) > 0;
                         $teamRatingDiff = ($teamBRating - $teamARating);
+                        $winRounds = $scoreArray[1];
                     }
 
-                    $ratingDiff = $this->ratingService->calculateRatingDiff($isWin, $stat, $teamRatingDiff);
+                    $ratingDiff = $this->ratingService->calculateRatingDiff($isWin, $stat, $teamRatingDiff, $winRounds);
                     $player->setRating($player->getRating() + $ratingDiff);
                     $this->playerRepository->add($player);
                     $this->statsRepository->add($stat);

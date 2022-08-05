@@ -9,30 +9,16 @@ use App\Entity\Stats;
 class RatingService
 {
     private const BASE_RATING_DIFF = 20;
+    private const BASE_PLAYER_IMPACT = 10;
     private const TEAM_RATING_DIFF = [
-        0 => [
-            'less' => 1,
-            'more' => 1,
-        ],
-        50 => [
-            'less' => 0.75,
-            'more' => 1.25,
-        ],
-        150 => [
-            'less' => 0.5,
-            'more' => 1.5,
-        ],
-        250 => [
-            'less' => 0.25,
-            'more' => 1.75,
-        ],
-        350 => [
-            'less' => 0.1,
-            'more' => 2,
-        ],
+        0 =>  1,
+        50 => 0.8,
+        150 =>  0.6,
+        250 =>  0.4,
+        350 =>  0.2,
     ];
 
-    public function calculateRatingDiff(bool $isWin, Stats $stats, float $avgTeamRatingDiff): float
+    public function calculateRatingDiff(bool $isWin, Stats $stats, float $avgTeamRatingDiff, int $winRounds): float
     {
         $kda = (($stats->getKills() + $stats->getAssists()) / $stats->getDeaths());
         if ($this->detectNeg($kda)) {
@@ -49,26 +35,32 @@ class RatingService
         $lastMultipliers = null;
         $ratingDiffMultiplier = null;
         foreach (self::TEAM_RATING_DIFF as $diff => $multipliers) {
-            if ($avgTeamRatingDiff > $diff) {
+            if ($avgTeamRatingDiff >= $diff) {
                 $lastMultipliers = $multipliers;
                 continue;
             }
 
-            $ratingDiffMultiplier = ($isWin xor $isNegDiff) ? $lastMultipliers['less'] : $lastMultipliers['more'];
+            $ratingDiffMultiplier = $lastMultipliers;
             break;
         }
 
-        if ($ratingDiffMultiplier !== null) {
+        if ($ratingDiffMultiplier === null) {
             $teamRatingDiff = self::TEAM_RATING_DIFF;
-            $multipliers = array_pop($teamRatingDiff);
-            $ratingDiffMultiplier = ($isWin xor $isNegDiff) ? $multipliers['less'] : $multipliers['more'];
+            $ratingDiffMultiplier = array_pop($teamRatingDiff);
         }
 
-        return $isWin ? ($baseRating * $ratingDiffMultiplier) : ($baseRating / $ratingDiffMultiplier * -1);
+        return $isWin
+            ? ($baseRating * $ratingDiffMultiplier + $this->getPlayerImpact($stats, $winRounds))
+            : ($baseRating / $ratingDiffMultiplier * -1 + $this->getPlayerImpact($stats, $winRounds));
     }
 
     private function detectNeg(float $float): bool
     {
         return $float < 0;
+    }
+
+    private function getPlayerImpact(Stats $stats, int $winRounds): float
+    {
+        return self::BASE_PLAYER_IMPACT * ($stats->getMvp() / $winRounds);
     }
 }
